@@ -6,7 +6,7 @@ func (ft T) True(cond bool, msg ...interface{}) {
 		if len(msg) == 0 {
 			ft.locatedFatalf("true != %v", cond)
 		} else {
-			ft.locatedFatalf(msg)
+			ft.locatedFatalf(msg...)
 		}
 	}
 }
@@ -17,7 +17,7 @@ func (ft T) Nope(cond bool, msg ...interface{}) {
 		if len(msg) == 0 {
 			ft.locatedFatalf("false != %v", cond)
 		} else {
-			ft.locatedFatalf(msg)
+			ft.locatedFatalf(msg...)
 		}
 	}
 }
@@ -28,7 +28,7 @@ func (ft T) Same(a interface{}, b interface{}, msg ...interface{}) {
 		if len(msg) == 0 {
 			ft.TypedFatalf("%v != %v", a, b)
 		} else {
-			ft.locatedFatalf(msg)
+			ft.locatedFatalf(msg...)
 		}
 	}
 }
@@ -40,7 +40,7 @@ func (ft T) Cond(a bool, b bool, msg ...interface{}) {
 		if len(msg) == 0 {
 			ft.locatedFatalf("%v !-> %v", a, b)
 		} else {
-			ft.locatedFatalf(msg)
+			ft.locatedFatalf(msg...)
 		}
 	}
 }
@@ -60,7 +60,7 @@ func (ft T) Null(a interface{}, msg ...interface{}) {
 		if len(msg) == 0 {
 			ft.TypedFatalf("nil != %v", a)
 		} else {
-			ft.locatedFatalf(msg)
+			ft.locatedFatalf(msg...)
 		}
 	}
 }
