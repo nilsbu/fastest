@@ -4,9 +4,9 @@ package fastest
 func (ft T) True(cond bool, msg ...interface{}) {
 	if !cond {
 		if len(msg) == 0 {
-			ft.locatedErrorf("true != %v", cond)
+			ft.locatedFatalf("true != %v", cond)
 		} else {
-			ft.locatedErrorf(msg)
+			ft.locatedFatalf(msg)
 		}
 	}
 }
@@ -15,9 +15,9 @@ func (ft T) True(cond bool, msg ...interface{}) {
 func (ft T) Nope(cond bool, msg ...interface{}) {
 	if cond {
 		if len(msg) == 0 {
-			ft.locatedErrorf("false != %v", cond)
+			ft.locatedFatalf("false != %v", cond)
 		} else {
-			ft.locatedErrorf(msg)
+			ft.locatedFatalf(msg)
 		}
 	}
 }
@@ -26,9 +26,9 @@ func (ft T) Nope(cond bool, msg ...interface{}) {
 func (ft T) Same(a interface{}, b interface{}, msg ...interface{}) {
 	if a != b {
 		if len(msg) == 0 {
-			ft.TypedErrorf("%v != %v", a, b)
+			ft.TypedFatalf("%v != %v", a, b)
 		} else {
-			ft.locatedErrorf(msg)
+			ft.locatedFatalf(msg)
 		}
 	}
 }
@@ -38,9 +38,9 @@ func (ft T) Same(a interface{}, b interface{}, msg ...interface{}) {
 func (ft T) Cond(a bool, b bool, msg ...interface{}) {
 	if a && !b {
 		if len(msg) == 0 {
-			ft.locatedErrorf("%v !-> %v", a, b)
+			ft.locatedFatalf("%v !-> %v", a, b)
 		} else {
-			ft.locatedErrorf(msg)
+			ft.locatedFatalf(msg)
 		}
 	}
 }
@@ -58,9 +58,9 @@ func (ft T) Only(cond bool) {
 func (ft T) Null(a interface{}, msg ...interface{}) {
 	if a != nil {
 		if len(msg) == 0 {
-			ft.TypedErrorf("nil != %v", a)
+			ft.TypedFatalf("nil != %v", a)
 		} else {
-			ft.locatedErrorf(msg)
+			ft.locatedFatalf(msg)
 		}
 	}
 }

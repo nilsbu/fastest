@@ -10,9 +10,12 @@ import (
 // TypedErrorf fails the test like t.Errorf but the message formats values in
 // the format "type(Value)".
 func (ft T) TypedErrorf(pattern string, vars ...interface{}) {
-
 	s := sprintft(pattern, vars...)
 	ft.locatedError(s)
+}
+
+func (ft T) locatedError(s string) {
+	ft.Errorf("%s: %s", getErrorLocation(), s)
 }
 
 func (ft T) locatedErrorf(msg ...interface{}) {
@@ -20,8 +23,20 @@ func (ft T) locatedErrorf(msg ...interface{}) {
 		fmt.Sprintf(msg[0].(string), msg[1:]...))
 }
 
-func (ft T) locatedError(s string) {
-	ft.Errorf("%s: %s", getErrorLocation(), s)
+// TypedFatalf fails the test like t.Fatalf but the message formats values in
+// the format "type(Value)".
+func (ft T) TypedFatalf(pattern string, vars ...interface{}) {
+	s := sprintft(pattern, vars...)
+	ft.locatedFatal(s)
+}
+
+func (ft T) locatedFatalf(msg ...interface{}) {
+	ft.Fatalf("%s: %s", getErrorLocation(),
+		fmt.Sprintf(msg[0].(string), msg[1:]...))
+}
+
+func (ft T) locatedFatal(s string) {
+	ft.Fatalf("%s: %s", getErrorLocation(), s)
 }
 
 func sprintft(pattern string, vars ...interface{}) string {
