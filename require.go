@@ -1,5 +1,7 @@
 package fastest
 
+import "reflect"
+
 // True asserts that cond is true.
 func (ft T) True(cond bool, msg ...interface{}) {
 	if !cond {
@@ -25,6 +27,18 @@ func (ft T) False(cond bool, msg ...interface{}) {
 // Equals asserts that a and b are equal.
 func (ft T) Equals(a, b interface{}, msg ...interface{}) {
 	if a != b {
+		if len(msg) == 0 {
+			ft.TypedFatalf("%v != %v", a, b)
+		} else {
+			ft.locatedFatalf(msg...)
+		}
+	}
+}
+
+// DeepEquals asserts that a and b are equal according to the rules of
+// reflect.DeepEqual.
+func (ft T) DeepEquals(a, b interface{}, msg ...interface{}) {
+	if !reflect.DeepEqual(a, b) {
 		if len(msg) == 0 {
 			ft.TypedFatalf("%v != %v", a, b)
 		} else {
