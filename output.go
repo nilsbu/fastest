@@ -31,8 +31,15 @@ func (ft T) TypedFatalf(pattern string, vars ...interface{}) {
 }
 
 func (ft T) locatedFatalf(msg ...interface{}) {
-	ft.Fatalf("%s: %s", getErrorLocation(),
-		fmt.Sprintf(msg[0].(string), msg[1:]...))
+	location := getErrorLocation()
+	var usermsg string
+	if err, ok := msg[0].(error); ok {
+		usermsg = err.Error()
+	} else {
+		usermsg = fmt.Sprintf(msg[0].(string), msg[1:]...)
+	}
+
+	ft.Fatalf("%s: %s", location, usermsg)
 }
 
 func (ft T) locatedFatal(s string) {
